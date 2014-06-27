@@ -41,7 +41,25 @@ function init(){
 
   var dlmLayer = L.geoJson(  archeological, {
       pointToLayer: function (feature, latlng) {
-          return L.circleMarker(latlng, dlmOptions);
+          var imageUrl;
+      var archeoType=feature.properties.site_type;
+      switch( archeoType){
+          case 'dolmen':
+              imageUrl='images/dolmen.png'; break;
+          case 'megalith':
+              imageUrl='images/menhir.png'; break;
+          case 'fortification':
+              imageUrl='images/fortifications.png'; break;
+          default:
+              imageUrl='images/ruine.png'; break;
+      }
+          var myIcon = L.icon({
+              iconUrl: imageUrl,
+              iconSize: [40, 40],
+              iconAnchor: [20, 20],
+              popupAnchor: [0, -20]});
+          var marker = L.marker(latlng, {icon:myIcon} );
+          return  marker;
       },
       style: archeoColor,
     onEachFeature: function (feature, layer) {
