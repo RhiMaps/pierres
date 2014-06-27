@@ -72,11 +72,24 @@ function init(){
           return  marker;
       },
       style: archeoColor,
-    onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.site_type);
-    }
+    onEachFeature: archeoPopup,
   });
   dlmLayer.addTo(map);
+
+  function archeoPopup(feature, layer){
+      var popupTxt='';
+      if( undefined == feature.properties.site_type )
+          popupTxt+='';
+      else
+          popupTxt+=feature.properties.site_type;
+
+      if( undefined == feature.properties.name )
+          popupTxt+='';
+      else
+          popupTxt+='</br>'+feature.properties.name;
+
+    layer.bindPopup(popupTxt);
+  }
 
   function archeoColor(feature){
 
