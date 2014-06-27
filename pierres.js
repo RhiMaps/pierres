@@ -1,4 +1,4 @@
-var z=9;
+var z=7;
 var myLL= L.latLng(43.59, 1.45);
 
 function init(){
@@ -21,11 +21,58 @@ function init(){
       });
 
 
-  var dlmLayer = L.geoJson(  archeological, {
+  var dolmenLayer = L.geoJson(  archeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
-  });
-  dlmLayer.addTo(map);
+      filter: function( feature, layer){
+          return 'dolmen' == feature.properties.site_type;
+      }
+  }).addTo(map);
+
+  var fortifLayer = L.geoJson(  archeological, {
+      pointToLayer: archeoMarker,
+      onEachFeature: archeoPopup,
+      filter: function( feature, layer){
+          return 'fortification' == feature.properties.site_type;
+      }
+  }).addTo(map);
+
+  var tumulusLayer = L.geoJson(  archeological, {
+      pointToLayer: archeoMarker,
+      onEachFeature: archeoPopup,
+      filter: function( feature, layer){
+          return 'tumulus' == feature.properties.site_type;
+      }
+  }).addTo(map);
+
+  var megalithLayer = L.geoJson(  archeological, {
+      pointToLayer: archeoMarker,
+      onEachFeature: archeoPopup,
+      filter: function( feature, layer){
+          return 'megalih' == feature.properties.site_type||
+                 'meglith' == feature.properties.site_type||
+                 'megalith' == feature.properties.site_type;
+      }
+  }).addTo(map);
+
+  var otherLayer = L.geoJson(  archeological, {
+      pointToLayer: archeoMarker,
+      onEachFeature: archeoPopup,
+      filter: function( feature, layer){
+          return 'petroglyph' == feature.properties.site_type||
+                 'quarry' == feature.properties.site_type||
+                 'villa' == feature.properties.site_type;
+      }
+  }).addTo(map);
+
+  var notypeLayer = L.geoJson(  archeological, {
+      pointToLayer: archeoMarker,
+      onEachFeature: archeoPopup,
+      filter: function( feature, layer){
+          return undefined == feature.properties.site_type;
+      }
+  }).addTo(map);
+
 
    function archeoMarker (feature, latlng) {
           var imageUrl;
@@ -80,11 +127,16 @@ function init(){
     "OSM": osmLayer
   };
 
-  var overlays = {
-    "pierres": dlmLayer,
-  };
+ var overlays = {
+   "dolmen": dolmenLayer,
+   "megalithes": megalithLayer,
+   "fortification": fortifLayer,
+   "tumulus": tumulusLayer,
+   "petroglyphe, villa": otherLayer,
+   "sans type": notypeLayer,
+ };
 
-  L.control.layers(baseLayers, overlays).setPosition('bottomleft').addTo(map);
+  L.control.layers(baseLayers, overlays).setPosition('topright').addTo(map);
 
 
 }
