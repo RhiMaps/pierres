@@ -1,0 +1,16 @@
+#map {height: 100%; }
+body {margin:0; height: 100%;}
+body>div { height: 100%}
+html {height: 100%;}
+
+.info {
+  padding: 6px 8px;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  min-width: 390px;
+  text-align: left;
+  line-height: 18px;
+  color: #555;
+}
+
