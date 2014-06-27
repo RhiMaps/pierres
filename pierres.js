@@ -22,29 +22,33 @@ function init(){
 
 
   var dlmLayer = L.geoJson(  archeological, {
-      pointToLayer: function (feature, latlng) {
+      pointToLayer: archeoMarker,
+      onEachFeature: archeoPopup,
+  });
+  dlmLayer.addTo(map);
+
+   function archeoMarker (feature, latlng) {
           var imageUrl;
       var archeoType=feature.properties.site_type;
-      switch( archeoType){
-          case 'dolmen':
-              imageUrl='images/dolmen.png'; break;
-          case "megalih":
-          case "meglith":
-          case 'megalith':
-              imageUrl='images/menhir.png'; break;
-          case 'fortification':
-              imageUrl='images/fortifications.png'; break;
-          case 'tumulus':
-              imageUrl='images/tumulus.png'; break;
-          default:
-              imageUrl='images/ruine.png'; break;
-
+          switch( archeoType){
+              case 'dolmen':
+                  imageUrl='images/dolmen.png'; break;
+              case "megalih":
+              case "meglith":
+              case 'megalith':
+                  imageUrl='images/menhir.png'; break;
+              case 'fortification':
+                  imageUrl='images/fortifications.png'; break;
+              case 'tumulus':
+                  imageUrl='images/tumulus.png'; break;
+              default:
+                  imageUrl='images/ruine.png'; break;
               /*
-        "site_type": "petroglyph",
-        "site_type": "quarry"
-        "site_type": "villa",
-        */
-      }
+            "site_type": "petroglyph",
+            "site_type": "quarry"
+            "site_type": "villa",
+            */
+          }
           var myIcon = L.icon({
               iconUrl: imageUrl,
               iconSize: [40, 40],
@@ -52,10 +56,7 @@ function init(){
               popupAnchor: [0, -20]});
           var marker = L.marker(latlng, {icon:myIcon} );
           return  marker;
-      },
-    onEachFeature: archeoPopup,
-  });
-  dlmLayer.addTo(map);
+      }
 
   function archeoPopup(feature, layer){
       var popupTxt='';
