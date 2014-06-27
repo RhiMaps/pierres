@@ -14,30 +14,12 @@ function init(){
       attribution: 'OpenStreetMap'
       });
   osmLayer.addTo(map);
+
   var mapqLayer = L.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
       attribution: 'MapQuest OpenStreetMap',
       subdomains: ['otile1','otile2','otile3','otile4']
       });
-  mapqLayer.addTo(map);
 
-
-
-  var mnhOptions = {
-      radius: 8,
-      fillColor: "red",
-      color: "black",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-  };
-  var dlmOptions = {
-      radius: 8,
-      fillColor: "yellow",
-      color: "#000",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-  };
 
   var dlmLayer = L.geoJson(  archeological, {
       pointToLayer: function (feature, latlng) {
@@ -71,7 +53,6 @@ function init(){
           var marker = L.marker(latlng, {icon:myIcon} );
           return  marker;
       },
-      style: archeoColor,
     onEachFeature: archeoPopup,
   });
   dlmLayer.addTo(map);
@@ -90,28 +71,6 @@ function init(){
 
     layer.bindPopup(popupTxt);
   }
-
-  function archeoColor(feature){
-
-      var archeoType=feature.properties.site_type;
-      var archeoColor;
-      switch( archeoType){
-          case 'fortification':
-              archeoColor='red'; break;
-          case 'bigstone':
-              archeoColor='blue'; break;
-          case 'dolmen':
-              archeoColor='green'; break;
-          case 'megalith':
-              archeoColor='yellow'; break;
-          default:
-              archeoColor='white'; 
-      }
-
-      return {fillColor: archeoColor};
-
-  };
-
 
 
 
