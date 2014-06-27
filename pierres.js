@@ -27,7 +27,8 @@ function init(){
       filter: function( feature, layer){
           return 'dolmen' == feature.properties.site_type;
       }
-  }).addTo(map);
+  });
+
 
   var fortifLayer = L.geoJson(  archeological, {
       pointToLayer: archeoMarker,
@@ -35,7 +36,8 @@ function init(){
       filter: function( feature, layer){
           return 'fortification' == feature.properties.site_type;
       }
-  }).addTo(map);
+  });
+
 
   var tumulusLayer = L.geoJson(  archeological, {
       pointToLayer: archeoMarker,
@@ -53,7 +55,17 @@ function init(){
                  'meglith' == feature.properties.site_type||
                  'megalith' == feature.properties.site_type;
       }
-  }).addTo(map);
+  });
+
+  var dolmenCluster = new L.MarkerClusterGroup();
+  dolmenCluster.addLayer(fortifLayer);
+  dolmenCluster.addLayer(dolmenLayer);
+  dolmenCluster.addLayer(megalithLayer);
+  dolmenCluster.addTo(map);
+
+  var otherCluster = new L.MarkerClusterGroup();
+  otherCluster.addLayer( otherLayer );
+  otherCluster.addTo(map);
 
   var otherLayer = L.geoJson(  archeological, {
       pointToLayer: archeoMarker,
@@ -63,7 +75,7 @@ function init(){
                  'quarry' == feature.properties.site_type||
                  'villa' == feature.properties.site_type;
       }
-  }).addTo(map);
+  });
 
   var notypeLayer = L.geoJson(  archeological, {
       pointToLayer: archeoMarker,
@@ -128,7 +140,7 @@ function init(){
   };
 
  var overlays = {
-   "dolmen": dolmenLayer,
+//   "dolmen": dolmenLayer,
    "megalithes": megalithLayer,
    "fortification": fortifLayer,
    "tumulus": tumulusLayer,
