@@ -46,12 +46,22 @@ function init(){
       switch( archeoType){
           case 'dolmen':
               imageUrl='images/dolmen.png'; break;
+          case "megalih":
+          case "meglith":
           case 'megalith':
               imageUrl='images/menhir.png'; break;
           case 'fortification':
               imageUrl='images/fortifications.png'; break;
+          case 'tumulus':
+              imageUrl='images/tumulus.png'; break;
           default:
               imageUrl='images/ruine.png'; break;
+
+              /*
+        "site_type": "petroglyph",
+        "site_type": "quarry"
+        "site_type": "villa",
+        */
       }
           var myIcon = L.icon({
               iconUrl: imageUrl,
