@@ -21,7 +21,7 @@ function init(){
       });
 
 
-  var dolmenLayer = L.geoJson(  archeological, {
+  var dolmenLayer = L.geoJson(  archaeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
       filter: function( feature, layer){
@@ -29,7 +29,7 @@ function init(){
       }
   }).addTo(map);
 
-  var fortifLayer = L.geoJson(  archeological, {
+  var fortifLayer = L.geoJson(  archaeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
       filter: function( feature, layer){
@@ -37,7 +37,7 @@ function init(){
       }
   }).addTo(map);
 
-  var tumulusLayer = L.geoJson(  archeological, {
+  var tumulusLayer = L.geoJson(  archaeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
       filter: function( feature, layer){
@@ -45,7 +45,7 @@ function init(){
       }
   }).addTo(map);
 
-  var megalithLayer = L.geoJson(  archeological, {
+  var megalithLayer = L.geoJson(  archaeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
       filter: function( feature, layer){
@@ -55,7 +55,7 @@ function init(){
       }
   }).addTo(map);
 
-  var otherLayer = L.geoJson(  archeological, {
+  var otherLayer = L.geoJson(  archaeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
       filter: function( feature, layer){
@@ -65,7 +65,7 @@ function init(){
       }
   }).addTo(map);
 
-  var notypeLayer = L.geoJson(  archeological, {
+  var notypeLayer = L.geoJson(  archaeological, {
       pointToLayer: archeoMarker,
       onEachFeature: archeoPopup,
       filter: function( feature, layer){
