@@ -1,4 +1,17 @@
-pierres
-=======
+# pierres
 
-Prototype d'affichages des dolmen, menhir et autres megalithe de OSM
+Display dolmens, various standing stones, and other megaliths
+
+
+## DATA Sources
+
+  * OSM historic=archeological_site nodes
+  * overpass api 
+  *
+
+
+
+
+## Hints
+
+  *  leaflet-layer-overpass plugin
