@@ -138,6 +138,10 @@ function init(){
 
   L.control.layers(baseLayers, overlays).setPosition('topright').addTo(map);
 
+  // rewrite url to show lat/lon/zoom
+  // uses leaflet-hash as submodule
+  var hash = new L.Hash(map);
+
 
 }
 
