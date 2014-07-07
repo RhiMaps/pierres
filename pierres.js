@@ -142,6 +142,10 @@ function init(){
   // uses leaflet-hash as submodule
   var hash = new L.Hash(map);
 
+  new L.Control.GeoSearch({
+          provider: new L.GeoSearch.Provider.OpenStreetMap()
+  }).addTo(map);
+
 
 }
 
