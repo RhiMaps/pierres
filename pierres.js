@@ -150,7 +150,8 @@ function init(){
   var hash = new L.Hash(map);
 
   new L.Control.GeoSearch({
-          provider: new L.GeoSearch.Provider.OpenStreetMap()
+          provider: new L.GeoSearch.Provider.OpenStreetMap(),
+          zoomLevel: 15,
   }).addTo(map);
 
 
