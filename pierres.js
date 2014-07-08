@@ -155,16 +155,25 @@ hybridDay.addTo(map);
    "sans type": notypeLayer,
  };
 
+ // layers switcher
   L.control.layers(baseLayers, overlays).setPosition('topright').addTo(map);
 
+  // scale at bottom left
+  L.control.scale().addTo(map);
+
   // rewrite url to show lat/lon/zoom
-  // uses leaflet-hash as submodule
+  // (uses leaflet-hash plugin as submodule)
   var hash = new L.Hash(map);
 
+  // search field to find place
+  // (use leaflet-geocoding plugin as submodule)
   new L.Control.GeoSearch({
           provider: new L.GeoSearch.Provider.OpenStreetMap(),
           zoomLevel: 15,
   }).addTo(map);
+
+
+
 
 
 }
