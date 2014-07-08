@@ -10,10 +10,21 @@ function init(){
       center:myLL,
       zoom:z});
 
+    var hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
+    attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
+    subdomains: '1234',
+    mapID: 'newest',
+    app_id: '<insert your app_id here>',
+    app_code: '<insert your app_code here>',
+    base: 'aerial',
+    minZoom: 0,
+    maxZoom: 20
+    });
+hybridDay.addTo(map);
+
     var esriLayer = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
-  esriLayer.addTo(map);
 
 
   // add an OpenStreetMap tile layer
@@ -130,6 +141,7 @@ function init(){
 
   var baseLayers = {
     "Satellite": esriLayer,
+    "Hybrid": hybridDay,
     "MapBox": mapqLayer,
     "OSM": osmLayer
   };
