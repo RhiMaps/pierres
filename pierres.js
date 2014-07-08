@@ -92,10 +92,10 @@ function init(){
 
         function overpassPopup(data, marker) {
             var divPopup = "";
-            if ( data.tags.name  )  divPopup+="<b>name: </b>"+data.tags.name +"<br/>";
-            if ( data.tags.site_type )  divPopup+="<b>site_type: </b>"+data.tags.site_type+"<br/>" ;
+            if ( data.tags.name  )          divPopup+="<b>name: </b>"+data.tags.name +"<br/>";
+            if ( data.tags.site_type )      divPopup+="<b>site_type: </b>"+data.tags.site_type+"<br/>" ;
             if ( data.tags.megalith_type )  divPopup+="<b>megalith_type: </b>"+data.tags.megalith_type+"<br/>";
-            if ( data.tags.source )  divPopup+="<b>source: </b>"+toHref(data.tags.source)+"<br/>";
+            if ( data.tags.source )         divPopup+="<b>source: </b>"+toHref(data.tags.source)+"<br/>";
             return divPopup;
         }
         function overpassIcon(data, title) {
@@ -152,8 +152,8 @@ function init(){
 
     function toHref( ref ){
         var href=ref;
-        if (ref.indexOf("http") > -1 ) href = "<a href=\""+ref+">"+ref+"</a>";
-        console.log( href);
+        if (ref.indexOf("http") > -1 ) href = "<a href=\""+ref+"\">"+ref+"</a>";
+        console.log("href: "+ href);
         return href;
     }
 
