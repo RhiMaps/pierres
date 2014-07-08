@@ -4,3 +4,6 @@
 [submodule "lf-plugins/L.GeoSearch"]
 	path = lf-plugins/L.GeoSearch
 	url = https://github.com/smeijer/L.GeoSearch.git
+[submodule "lf-plugins/leaflet-layerJSON"]
+	path = lf-plugins/leaflet-layerJSON
+	url = https://github.com/stefanocudini/leaflet-layerJSON.git
