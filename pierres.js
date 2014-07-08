@@ -10,6 +10,10 @@ function init(){
       center:myLL,
       zoom:z});
 
+    var esriLayer = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(map);
+
     var hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
     attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
     subdomains: '1234',
@@ -19,11 +23,6 @@ function init(){
     base: 'aerial',
     minZoom: 0,
     maxZoom: 20
-    });
-hybridDay.addTo(map);
-
-    var esriLayer = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
 
@@ -38,57 +37,11 @@ hybridDay.addTo(map);
       });
 
 
-  var dolmenLayer = L.geoJson(  archaeological, {
-      pointToLayer: archeoMarker,
-      onEachFeature: archeoPopup,
-      filter: function( feature, layer){
-          return 'dolmen' == feature.properties.site_type;
-      }
-  }).addTo(map);
 
-  var fortifLayer = L.geoJson(  archaeological, {
-      pointToLayer: archeoMarker,
-      onEachFeature: archeoPopup,
-      filter: function( feature, layer){
-          return 'fortification' == feature.properties.site_type;
-      }
-  }).addTo(map);
+  //
+  // POIS Overlays 
+  //
 
-  var tumulusLayer = L.geoJson(  archaeological, {
-      pointToLayer: archeoMarker,
-      onEachFeature: archeoPopup,
-      filter: function( feature, layer){
-          return 'tumulus' == feature.properties.site_type;
-      }
-  }).addTo(map);
-
-  var megalithLayer = L.geoJson(  archaeological, {
-      pointToLayer: archeoMarker,
-      onEachFeature: archeoPopup,
-      filter: function( feature, layer){
-          return 'megalih' == feature.properties.site_type||
-                 'meglith' == feature.properties.site_type||
-                 'megalith' == feature.properties.site_type;
-      }
-  }).addTo(map);
-
-  var otherLayer = L.geoJson(  archaeological, {
-      pointToLayer: archeoMarker,
-      onEachFeature: archeoPopup,
-      filter: function( feature, layer){
-          return 'petroglyph' == feature.properties.site_type||
-                 'quarry' == feature.properties.site_type||
-                 'villa' == feature.properties.site_type;
-      }
-  }).addTo(map);
-
-  var notypeLayer = L.geoJson(  archaeological, {
-      pointToLayer: archeoMarker,
-      onEachFeature: archeoPopup,
-      filter: function( feature, layer){
-          return undefined == feature.properties.site_type;
-      }
-  }).addTo(map);
 
 
    function archeoMarker (feature, latlng) {
@@ -137,6 +90,72 @@ hybridDay.addTo(map);
     layer.bindPopup(popupTxt);
   }
 
+        function overpassPopup(data, marker) {
+            var divPopup = "";
+            if ( data.tags.name  )          divPopup+="<b>name: </b>"+data.tags.name +"<br/>";
+            if ( data.tags.site_type )      divPopup+="<b>site_type: </b>"+data.tags.site_type+"<br/>" ;
+            if ( data.tags.megalith_type )  divPopup+="<b>megalith_type: </b>"+data.tags.megalith_type+"<br/>";
+            if ( data.tags.source )         divPopup+="<b>source: </b>"+toHref(data.tags.source)+"<br/>";
+            return divPopup;
+        }
+        function overpassIcon(data, title) {
+          var imageBase="";
+          var archeoType=data.tags.site_type;
+          switch( archeoType){
+              case 'dolmen':
+                  imageBase='dolmen'; break;
+              case "megalih":
+              case "meglith":
+              case 'megalith':
+                  imageBase='menhir'; break;
+              case 'fortification':
+                  imageBase='fortifications'; break;
+              case 'tumulus':
+                  imageBase='tumulus'; break;
+              default:
+                  imageBase='ruine'; break;
+              /*
+            "site_type": "petroglyph",
+            "site_type": "quarry"
+            "site_type": "villa",
+            */
+          }
+            if ( data.tags.source && data.tags.source.indexOf("t4t35") > -1 ) imageBase +='_red';
+            var iconUrl='images/'+imageBase+'.png';
+            return new L.Icon({
+                iconUrl:iconUrl,
+                iconSize: new L.Point(32, 37),
+                iconAnchor: new L.Point(18, 37),
+                popupAnchor: new L.Point(0, -37)
+            });
+        }
+
+
+  var loader = L.DomUtil.get('loader');
+
+    L.layerJSON({
+        url:
+        'http://overpass-api.de/api/interpreter?data=[out:json];node({lat1},{lon1},{lat2},{lon2})[historic=archaeological_site];out;',
+        propertyItems: 'elements',
+        propertyTitle: 'tags.name',
+        propertyLoc: ['lat','lon'],
+        buildIcon: overpassIcon,
+        buildPopup: overpassPopup,
+    })
+    .on('dataloading',function(e) {
+        loader.style.display = 'block';
+    })
+    .on('dataloaded',function(e) {
+        loader.style.display = 'none';
+    })
+    .addTo(map);
+
+    function toHref( ref ){
+        var href=ref;
+        if (ref.indexOf("http") > -1 ) href = "<a href=\""+ref+"\">"+ref+"</a>";
+        console.log("href: "+ href);
+        return href;
+    }
 
 
   var baseLayers = {
@@ -146,17 +165,8 @@ hybridDay.addTo(map);
     "OSM": osmLayer
   };
 
- var overlays = {
-   "dolmen": dolmenLayer,
-   "megalithes": megalithLayer,
-   "fortification": fortifLayer,
-   "tumulus": tumulusLayer,
-   "petroglyphe, villa": otherLayer,
-   "sans type": notypeLayer,
- };
-
  // layers switcher
-  L.control.layers(baseLayers, overlays).setPosition('topright').addTo(map);
+  L.control.layers(baseLayers).setPosition('topright').addTo(map);
 
   // scale at bottom left
   L.control.scale().addTo(map);
