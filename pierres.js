@@ -150,7 +150,7 @@ function init() {
 
 
     // layers switcher
-    L.control.layers(baseLayers, overLays).setPosition('topright').addTo(map);
+    L.control.layers(baseLayers).setPosition('topright').addTo(map);
 
     // scale at bottom left
     L.control.scale().addTo(map);
