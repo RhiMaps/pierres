@@ -61,33 +61,21 @@ function init() {
     }
 
     var loader = L.DomUtil.get('loader');
+    var clusterLayer = new L.MarkerClusterGroup().addTo(map);
 
     function jsonLoading(e) {
-        console.log(e.target._map._zoom);
+        console.log(e);
         loader.style.display = 'block';
     }
 
     function jsonLoaded(e) {
-        console.log(e.target._map._zoom);
         loader.style.display = 'none';
     }
 
-    L.layerJSON({
-        url: 'http://overpass-api.de/api/interpreter?data=[out:json];node({lat1},{lon1},{lat2},{lon2})[historic=archaeological_site];out;',
-        propertyItems: 'elements',
-        propertyTitle: 'tags.name',
-        propertyLoc: ['lat', 'lon'],
-        buildIcon: overpassIcon,
-        buildPopup: overpassPopup,
-        minZoom: 9,
-    }).on('dataloading', jsonLoading)
-        .on('dataloaded', jsonLoaded)
-        .addTo(map);
 
     function toHref(ref) {
         var href = ref;
-        if (ref.indexOf("http") > -1) href = "<a href=\"" + ref + "\">" + ref + "</a>";
-        console.log("href: " + href);
+        if (ref.indexOf("http") > -1) href = "<a href=\"" + ref + "\">lien</a>";
         return href;
     }
 
@@ -128,6 +116,19 @@ function init() {
         });
     }
 
+    var jsonLayer = L.layerJSON({
+        url: 'http://overpass-api.de/api/interpreter?data=[out:json];node({lat1},{lon1},{lat2},{lon2})[historic=archaeological_site];out;',
+        propertyItems: 'elements',
+        propertyTitle: 'tags.name',
+        propertyLoc: ['lat', 'lon'],
+        buildIcon: overpassIcon,
+        buildPopup: overpassPopup,
+        minZoom: 8,
+        layerTarget: clusterLayer,
+    }).on('dataloading', jsonLoading)
+        .on('dataloaded', jsonLoaded).addTo(map);
+
+
 
     //
     // Map Controls and Layers
@@ -141,9 +142,15 @@ function init() {
         "Basic": stamenLayer,
     };
 
+    var overLays = {
+        "points": jsonLayer,
+        "cluster": clusterLayer,
+    };
+
+
 
     // layers switcher
-    L.control.layers(baseLayers).setPosition('topright').addTo(map);
+    L.control.layers(baseLayers, overLays).setPosition('topright').addTo(map);
 
     // scale at bottom left
     L.control.scale().addTo(map);
