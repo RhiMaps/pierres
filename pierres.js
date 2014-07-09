@@ -1,7 +1,8 @@
-function init() {
+var z = 11;
+var myLL = L.latLng(43.3317, 2.5808);
+var jsonMinZoom = 9;
 
-    var z = 11;
-    var myLL = L.latLng(43.3317, 2.5808);
+function init() {
 
 
     // create a map in the "map" div, set the view to a given place and zoom
@@ -123,7 +124,7 @@ function init() {
         propertyLoc: ['lat', 'lon'],
         buildIcon: overpassIcon,
         buildPopup: overpassPopup,
-        minZoom: 8,
+        minZoom: jsonMinZoom,
         layerTarget: clusterLayer,
     }).on('dataloading', jsonLoading)
         .on('dataloaded', jsonLoaded).addTo(map);
