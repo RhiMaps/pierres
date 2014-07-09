@@ -1,6 +1,7 @@
 var z = 11;
 var myLL = L.latLng(43.3317, 2.5808);
 var jsonMinZoom = 9;
+var clusterMinZoom = 14;
 
 function init() {
 
@@ -22,17 +23,6 @@ function init() {
     var stamenLayer = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         subdomains: 'abcd',
-        minZoom: 0,
-        maxZoom: 20
-    });
-
-    var hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/hybrid.day/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
-        attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
-        subdomains: '1234',
-        mapID: 'newest',
-        app_id: '<insert your app_id here>',
-        app_code: '<insert your app_code here>',
-        base: 'aerial',
         minZoom: 0,
         maxZoom: 20
     });
@@ -63,7 +53,7 @@ function init() {
 
     var loader = L.DomUtil.get('loader');
     var clusterLayer = new L.MarkerClusterGroup({
-        disableClusteringAtZoom: 17,
+        disableClusteringAtZoom: clusterMinZoom,
     }).addTo(map);
 
     function jsonLoading(e) {
@@ -95,8 +85,7 @@ function init() {
 
     function overpassIcon(data, title) {
         var imageBase = "";
-        var archeoType = data.tags.site_type;
-        switch (archeoType) {
+        switch (data.tags.site_type) {
             case 'dolmen':
                 imageBase = 'dolmen';
                 break;
@@ -104,6 +93,25 @@ function init() {
             case "meglith":
             case 'megalith':
                 imageBase = 'menhir';
+                switch (data.tags.megalith_type) {
+                    case 'dolmen':
+                    case 'grosssteingrab':
+                        imageBase = 'dolmen';
+                        break;
+                    case 'menhir':
+                        imageBase = 'menhir'
+                        break;
+                    case 'alignment':
+                        imageBase = 'alignment'
+                        break;
+                    case 'stone_circle':
+                        imageBase = 'circle'
+                        break;
+                    case 'passage_grave':
+                    case 'chamber':
+                    default:
+                        imageBase = 'ruine'
+                }
                 break;
             case 'fortification':
                 imageBase = 'fortifications';
@@ -152,19 +160,22 @@ function init() {
         "Satellite": esriLayer,
         "OSM": osmLayer,
         "MapBox": mapqLayer,
-        "Hybrid": hybridDay,
         "Basic": stamenLayer,
     };
 
     var overLays = {
-        "points": jsonLayer,
-        "cluster": clusterLayer,
+        "Pierres": clusterLayer,
     };
 
 
 
     // layers switcher
-    L.control.layers(baseLayers).setPosition('topright').addTo(map);
+    L.control.layers(
+        baseLayers,
+        overLays, {
+            collapsed: false,
+        }
+    ).setPosition('topright').addTo(map);
 
     // scale at bottom left
     L.control.scale().addTo(map);
