@@ -11,6 +11,7 @@ The right way to install would be
 
 ```bash
 git clone git@github.com:RichardHitier/pierres.git
+cd pierres/
 git submodule init
 git submodule update
 ```
