@@ -20,9 +20,6 @@ git submodule update
 
   * OSM historic=archeological_site nodes
   * overpass api 
-  *
-
-
 
 
 ## Hints
@@ -33,3 +30,5 @@ git submodule update
 
 ## Cooming Soon
 
+ * one overlay by megalith_type
+ * 

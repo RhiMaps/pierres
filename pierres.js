@@ -102,7 +102,11 @@ function init() {
                         imageBase = 'menhir'
                         break;
                     case 'alignment':
+                        imageBase = 'alignment'
+                        break;
                     case 'stone_circle':
+                        imageBase = 'circle'
+                        break;
                     case 'passage_grave':
                     case 'chamber':
                     default:
