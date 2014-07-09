@@ -16,10 +16,8 @@ html {height: 100%;}
 
 
 #loader {
-    /*
-    */
-    left: 300px;
-    top: 300px;
+    left: 40%;
+    top: 30%;
     position: absolute;
     height: 90px; 
     z-index: 5;
