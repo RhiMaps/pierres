@@ -7,3 +7,6 @@
 [submodule "lf-plugins/leaflet-layerJSON"]
 	path = lf-plugins/leaflet-layerJSON
 	url = https://github.com/stefanocudini/leaflet-layerJSON.git
+[submodule "lf-plugins/Leaflet.markercluster"]
+	path = lf-plugins/Leaflet.markercluster
+	url = https://github.com/Leaflet/Leaflet.markercluster.git
