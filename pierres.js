@@ -65,12 +65,23 @@ function init() {
     var clusterLayer = new L.MarkerClusterGroup().addTo(map);
 
     function jsonLoading(e) {
-        console.log(e);
+        // show loader
         loader.style.display = 'block';
+        // Disable drag and zoom handlers.
+        map.dragging.disable();
+        map.touchZoom.disable();
+        map.doubleClickZoom.disable();
+        map.scrollWheelZoom.disable();
+        //
     }
 
     function jsonLoaded(e) {
         loader.style.display = 'none';
+        // Enable drag and zoom handlers.
+        map.dragging.enable();
+        map.touchZoom.enable();
+        map.doubleClickZoom.enable();
+        map.scrollWheelZoom.enable();
     }
 
 
