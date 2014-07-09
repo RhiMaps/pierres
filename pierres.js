@@ -62,7 +62,9 @@ function init() {
     }
 
     var loader = L.DomUtil.get('loader');
-    var clusterLayer = new L.MarkerClusterGroup().addTo(map);
+    var clusterLayer = new L.MarkerClusterGroup({
+        disableClusteringAtZoom: 17,
+    }).addTo(map);
 
     function jsonLoading(e) {
         // show loader
