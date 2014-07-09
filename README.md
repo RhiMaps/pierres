@@ -2,6 +2,18 @@
 
 Display dolmens, various standing stones, and other megaliths
 
+## Install
+
+This project has leaflet dependencies included as git
+submodules.
+
+The right way to install would be
+
+```bash
+git clone git@github.com:RichardHitier/pierres.git
+git submodule init
+git submodule update
+```
 
 ## DATA Sources
 
@@ -15,3 +27,8 @@ Display dolmens, various standing stones, and other megaliths
 ## Hints
 
   *  leaflet-layer-overpass plugin
+
+## Features
+
+## Cooming Soon
+
