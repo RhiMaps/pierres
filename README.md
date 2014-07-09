@@ -28,7 +28,13 @@ git submodule update
 
 ## Features
 
-## Cooming Soon
+## Next
 
- * one overlay by megalith_type
- * 
+ * look for url key for link in info
+ * allow type filtering (display dolmen only for ex)
+ * add a disable clustering button
+ * anchor pin before zooming out or openstreetmap link
+ * import wikipedia poi's from Megalithic portal
+ * add T4T35 layer
+ * insert OSM editing poi link
+ * and look for OSM fixing tools (bad site_type, missing names, etc ...) ?
