@@ -4,6 +4,8 @@ var t4t35Layer = L.geoCsv(null, {
     onEachFeature: function (feature, layer) {
         var popupContent = '<b>'+feature.properties['nomsite']+'</b>'
                          + '</br><a href="http://www.t4t35.fr/Megalithes/AfficheSite.aspx?NumSite='+feature.properties['numsite']+'">Lien T4T35</a>'
+                         + '</br><img src="http://www.t4t35.fr/Megalithes/AffichePreview.aspx?Projet=France&IDSite='+feature.properties['idsite']+'"/>'
+    http://www.t4t35.fr/Megalithes/
         var popup = L.popup().setContent(popupContent);
         layer.bindPopup(popup);
     },
