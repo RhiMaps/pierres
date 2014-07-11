@@ -165,6 +165,7 @@ function init() {
 
     var overLays = {
         "Pierres": clusterLayer,
+        "T4T35 Tarn": t4t35Layer,
     };
 
 

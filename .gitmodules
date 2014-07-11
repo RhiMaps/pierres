@@ -10,3 +10,6 @@
 [submodule "lf-plugins/Leaflet.markercluster"]
 	path = lf-plugins/Leaflet.markercluster
 	url = https://github.com/Leaflet/Leaflet.markercluster.git
+[submodule "lf-plugins/Leaflet.geoCSV"]
+	path = lf-plugins/Leaflet.geoCSV
+	url = https://github.com/joker-x/Leaflet.geoCSV.git
