@@ -1,7 +1,7 @@
-var z = 11;
-var myLL = L.latLng(43.3317, 2.5808);
-var jsonMinZoom = 9;
-var clusterMinZoom = 14;
+var z = 9;
+var myLL = L.latLng(43.4459,2.8606);
+var jsonMinZoom = 10;
+var clusterMinZoom = 12;
 
 function init() {
 
@@ -162,6 +162,8 @@ function init() {
         "MapBox": mapqLayer,
         "Basic": stamenLayer,
     };
+
+    t4t35Layer.addTo(map);
 
     var overLays = {
         "Pierres": clusterLayer,
