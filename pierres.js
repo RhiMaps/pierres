@@ -41,6 +41,8 @@ function init() {
     //
 
 
+    overpasDynLayer = new overpass_dynLayer(map, 10, 12);
+
 
 
     //
@@ -57,7 +59,7 @@ function init() {
     t4t35Layer.addTo(map);
 
     var overLays = {
-        "Pierres": clusterLayer,
+        "Pierres": overpasDynLayer,
         "T4T35 Tarn": t4t35Layer,
     };
 
