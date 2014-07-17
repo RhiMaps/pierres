@@ -45,6 +45,7 @@ function init() {
     overpassDynLayer.addTo(map);
 
 
+    var t4t35Layer = new T4T35Layer(map).getLayer();
     t4t35Layer.addTo(map);
 
     //
