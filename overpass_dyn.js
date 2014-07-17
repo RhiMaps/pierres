@@ -1,7 +1,7 @@
-function overpass_dynLayer(map, jsonMin, clusterMin) {
+function OverpassDynLayer(map) {
 
-    var jsonMinZoom = jsonMin;
-    var clusterMinZoom = clusterMin;
+    var jsonMinZoom = 10;
+    var clusterMinZoom = 12;
 
 
     var loader = L.DomUtil.get('loader');
@@ -14,10 +14,6 @@ function overpass_dynLayer(map, jsonMin, clusterMin) {
         if (data.tags.source) divPopup += "<b>source: </b>" + toHref(data.tags.source) + "<br/>";
         return divPopup;
     }
-
-    var clusterLayer = new L.MarkerClusterGroup({
-        disableClusteringAtZoom: clusterMinZoom,
-    }).addTo(map);
 
     function jsonLoading(e) {
         // show loader
@@ -101,6 +97,10 @@ function overpass_dynLayer(map, jsonMin, clusterMin) {
         });
     }
 
+    this._clusterLayer = new L.MarkerClusterGroup({
+        disableClusteringAtZoom: clusterMinZoom,
+    });
+
     var jsonLayer = L.layerJSON({
         url: 'http://overpass-api.de/api/interpreter?data=[out:json];node({lat1},{lon1},{lat2},{lon2})[historic=archaeological_site];out;',
         propertyItems: 'elements',
@@ -109,7 +109,12 @@ function overpass_dynLayer(map, jsonMin, clusterMin) {
         buildIcon: overpassIcon,
         buildPopup: overpassPopup,
         minZoom: jsonMinZoom,
-        layerTarget: clusterLayer,
+        layerTarget: this._clusterLayer,
     }).on('dataloading', jsonLoading)
         .on('dataloaded', jsonLoaded).addTo(map);
+
+    this.getLayer = function (){
+        return this._clusterLayer;
+    }
+
 }

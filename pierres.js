@@ -41,9 +41,11 @@ function init() {
     //
 
 
-    overpasDynLayer = new overpass_dynLayer(map, 10, 12);
+    var overpassDynLayer = new OverpassDynLayer(map).getLayer();
+    overpassDynLayer.addTo(map);
 
 
+    t4t35Layer.addTo(map);
 
     //
     // Map Controls and Layers
@@ -56,10 +58,8 @@ function init() {
         "Basic": stamenLayer,
     };
 
-    t4t35Layer.addTo(map);
-
     var overLays = {
-        "Pierres": overpasDynLayer,
+        "Pierres": overpassDynLayer,
         "T4T35 Tarn": t4t35Layer,
     };
 
