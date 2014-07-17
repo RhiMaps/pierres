@@ -41,8 +41,8 @@ function init() {
     //
 
 
-    var overpassDynLayer = new OverpassDynLayer(map).getLayer();
-    overpassDynLayer.addTo(map);
+    var csvArcheoLayer = new CsvArcheoLayer(map).getLayer();
+    csvArcheoLayer.addTo(map);
 
 
     var t4t35Layer = new T4T35Layer(map).getLayer();
@@ -60,7 +60,7 @@ function init() {
     };
 
     var overLays = {
-        "Pierres": overpassDynLayer,
+        "Pierres": csvArcheoLayer,
         "T4T35 Tarn": t4t35Layer,
     };
 
