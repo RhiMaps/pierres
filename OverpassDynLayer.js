@@ -102,7 +102,7 @@ function OverpassDynLayer(map) {
     });
 
     var jsonLayer = L.layerJSON({
-        url: 'http://overpass-api.de/api/interpreter?data=[out:json];node({lat1},{lon1},{lat2},{lon2})[historic=archaeological_site];out;',
+        url: 'https://overpass-api.de/api/interpreter?data=[out:json];node({lat1},{lon1},{lat2},{lon2})[historic=archaeological_site];out;',
         propertyItems: 'elements',
         propertyTitle: 'tags.name',
         propertyLoc: ['lat', 'lon'],
